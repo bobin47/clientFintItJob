@@ -10,11 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/pro-components": "^2.6.11",
+    "@mui/material": "^5.14.8",
+    "@reduxjs/toolkit": "^1.9.5",
     "@types/node-sass": "^4.11.3",
     "antd": "^5.8.2",
     "node-sass": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.1.2",
     "react-router-dom": "^6.14.2"
   },
   "devDependencies": {
