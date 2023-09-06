@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiUser } from "../../../api/user.api";
-import { UserState } from "./userSlice";
-import { IFilter } from "../../../types/user/user.type";
+import { apiUser } from "../../../../api/user.api";
+import { UserState } from "../userSlice";
+import { IFilter } from "../../../../types/user/user.type";
 
 export const getAllUser = createAsyncThunk(
   "user/getAll",

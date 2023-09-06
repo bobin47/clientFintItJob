@@ -3,12 +3,21 @@
 }
 
 .container {
-  .search {
+  .filter {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
-    .ant-input-group-addon {
-      background: #1677ff;
-      &:hover {
-        background-color: #3f96ff;
+    .action {
+      .create {
+        margin-right: 5px;
+      }
+    }
+    .search {
+      .ant-input-group-addon {
+        background: #1677ff;
+        &:hover {
+          background-color: #3f96ff;
+        }
       }
     }
   }

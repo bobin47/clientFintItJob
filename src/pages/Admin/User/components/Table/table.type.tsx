@@ -1,6 +1,7 @@
-import { Space, Table, Tag } from "antd";
 import type { ColumnsType } from 'antd/es/table';
 import { IUserAdmin } from "../../../../../types/user/user.type";
+import { Space, Tag ,Button} from 'antd';
+
 export const columns: ColumnsType<IUserAdmin> = [
   {
     title: "ID",
@@ -46,8 +47,11 @@ export const columns: ColumnsType<IUserAdmin> = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.first_name}</a>
-        <a>Delete</a>
+        <Button type='primary' >Edit</Button>
+        <Button danger >Delete</Button>
+
+        {/* <a>Invite {record.first_name}</a>
+        <a>Delete</a> */}
       </Space>
     ),
   },

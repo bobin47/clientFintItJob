@@ -1,6 +1,7 @@
 import { IUserAdmin } from "./../../../types/user/user.type";
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllUserBuilder } from "./thunkUser";
+import { getAllUserBuilder } from "./thunk/thunkUser";
+import { createUserBuilder } from "./thunk/createThunkUser";
 
 export interface UserState {
   user: IUserAdmin[];
@@ -18,6 +19,7 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     getAllUserBuilder(builder);
+    createUserBuilder(builder);
   },
 });
 
