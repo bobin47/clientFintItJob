@@ -1,0 +1,15 @@
+.ant-input-group-addon {
+  background: red;
+}
+
+.container {
+  .search {
+    margin-bottom: 20px;
+    .ant-input-group-addon {
+      background: #1677ff;
+      &:hover {
+        background-color: #3f96ff;
+      }
+    }
+  }
+}

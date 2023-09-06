@@ -10,5 +10,6 @@ export const path = {
   cv: "cv",
   role: "role",
   permission: "permission",
-  category:"category"
+  category: "category",
+  home: "home",
 };

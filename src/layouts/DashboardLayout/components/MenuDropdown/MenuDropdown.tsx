@@ -1,9 +1,8 @@
-import React from "react";
 import { Avatar, Space, Dropdown, MenuProps } from "antd";
+import { clearLC } from "../../../../utils/auth.utils";
 
 export default function MenuDropdown() {
-  const url =
-    "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg";
+  const isAuth = JSON.parse(localStorage.getItem("user") || "{}");
 
   const items: MenuProps["items"] = [
     {
@@ -18,16 +17,19 @@ export default function MenuDropdown() {
       type: "divider",
     },
     {
-      label: "3rd menu item",
+      label: "Logout",
       key: "3",
+      onClick: () => {
+        clearLC();
+      },
     },
   ];
 
   return (
     <Dropdown menu={{ items }} trigger={["click"]}>
       <Space>
-        <Avatar src={url} />
-        <h3>name</h3>
+        <Avatar src={`http://localhost:3000/${isAuth.avatar}`} />
+        <h3>{isAuth.first_name}</h3>
       </Space>
     </Dropdown>
   );

@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router-dom";
+import { Navigate, Outlet, useRoutes } from "react-router-dom";
 import { path } from "../constants/path";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -8,62 +8,98 @@ import Dashboard from "../pages/Admin/Dashboard";
 import Company from "../pages/Admin/Company";
 import Job from "../pages/Admin/Job";
 import Resume from "../pages/Admin/Resume";
-import Role from "../pages/Admin/Role";
-import Permission from "../pages/Admin/Permission";
 import Post from "../pages/Admin/Post";
 import Category from "../pages/Admin/Category";
+import Home from "../pages/Client/Home/Home";
+
+function ProtectedRoute() {
+  const isAuthenticated = window.localStorage.getItem("user");
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+}
+
+function RejectRoute() {
+  const isAuthenticated = window.localStorage.getItem("user");
+  return !isAuthenticated ? <Outlet /> : <Navigate to="/home" />;
+}
+
+function IsAdmin() {
+  const data = JSON.parse(localStorage.getItem("user") || "{}");
+  return data.roles === "Admin" ? <Outlet /> : <Navigate to="/" />;
+}
 
 export default function useRouteElement() {
   const routeElement = useRoutes([
     {
-      path: path.login,
-      element: <Login />,
+      path: "/",
+      element: <RejectRoute />,
+      children: [
+        {
+          path: path.login,
+          element: <Login />,
+        },
+        {
+          path: path.login,
+          element: <Login />,
+        },
+      ],
     },
     {
-      path: path.register,
-      element: <Register />,
+      path: path.home,
+      element: <Home />,
     },
 
     {
-      path: path.admin,
-      element: <Admin />,
+      path: "/",
+      element: <ProtectedRoute />,
       children: [
         {
-          path: path.dashboard,
-          element: <Dashboard />,
+          path: "/",
+          element: <IsAdmin />,
+          children: [
+            {
+              path: path.admin,
+              element: <Admin />,
+              children: [
+                {
+                  path: path.dashboard,
+                  element: <Dashboard />,
+                },
+                {
+                  path: path.user,
+                  element: <User />,
+                },
+                {
+                  path: path.company,
+                  element: <Company />,
+                },
+                {
+                  path: path.post,
+                  element: <Post />,
+                },
+                {
+                  path: path.job,
+                  element: <Job />,
+                },
+                {
+                  path: path.cv,
+                  element: <Resume />,
+                },
+                {
+                  path: path.category,
+                  element: <Category />,
+                },
+                // {
+                //   path: path.role,
+                //   element: <Role />,
+                // },
+                // {
+                //   path: path.permission,
+                //   element: <Permission />,
+                // },
+              ],
+            },
+          ],
         },
-        {
-          path: path.user,
-          element: <User />,
-        },
-        {
-          path: path.company,
-          element: <Company />,
-        },
-        {
-          path: path.post,
-          element: <Post />,
-        },
-        {
-          path: path.job,
-          element: <Job />,
-        },
-        {
-          path: path.cv,
-          element: <Resume />,
-        },
-        {
-          path: path.category,
-          element: <Category />,
-        },
-        // {
-        //   path: path.role,
-        //   element: <Role />,
-        // },
-        // {
-        //   path: path.permission,
-        //   element: <Permission />,
-        // },
       ],
     },
   ]);

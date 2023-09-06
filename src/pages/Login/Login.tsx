@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Layout,
   Menu,
@@ -9,7 +8,8 @@ import {
   Typography,
   Form,
   Input,
-  Switch,
+  Checkbox,
+  message,
 } from "antd";
 import signinbg from "../../assets/images/img-signin.jpg";
 import {
@@ -19,33 +19,38 @@ import {
   GithubOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  increment,
-  decrement,
-  incrementByAmount,
-} from "../../store/features/counterSlice";
 import { RootState } from "../../store/store";
+import { LoginDto } from "../../types/dto/auth.dto";
+import { LoginAccount } from "../../store/features/authSlice/thunkauth";
 
 const { Title } = Typography;
 const { Footer, Content } = Layout;
 
 export default function SignIn() {
   const dispatch = useDispatch();
-  const count = useSelector((state: RootState) => state.counter.value);
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const [messageApi, contextHolder] = message.useMessage();
 
-  const onFinish = (values) => {
+  const onFinish = (values: LoginDto) => {
     console.log("Success:", values);
+    dispatch(LoginAccount(values));
   };
 
-  function onChange(checked) {
-    console.log(`switch to ${checked}`);
+  if (isAuthenticated) {
+    messageApi.info("Login success");
+    setTimeout(() => {
+      navigate("/home");
+    }, 2000);
+  } else {
+    messageApi.error("Login fail");
   }
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinishFailed = (errorInfo: any) => {};
+
   return (
     <>
+      {contextHolder}
       <Layout className="layout-default layout-signin">
         <Content className="signin">
           <Row gutter={[24, 0]} justify="space-around">
@@ -89,7 +94,7 @@ export default function SignIn() {
                     },
                   ]}
                 >
-                  <Input placeholder="Password" />
+                  <Input.Password placeholder="Password" />
                 </Form.Item>
 
                 <Form.Item
@@ -97,8 +102,9 @@ export default function SignIn() {
                   className="aligin-center"
                   valuePropName="checked"
                 >
-                  <Switch defaultChecked onChange={onChange} />
-                  Remember me
+                  {/* <Switch defaultChecked onChange={onChange} /> */}
+                  <Checkbox>Remember me</Checkbox>
+                  {/* Remember me */}
                 </Form.Item>
 
                 <Form.Item>
