@@ -16,6 +16,8 @@ export const apiUser = {
   editUser: (id: number, body: any) => {
     return http.put(`users/${id}`, body);
   },
-  deleteUser: () => {},
+  deleteUser: (id: number) => {
+    return http.delete(`users/${id}`);
+  },
   uploadAvatar: () => {},
 };

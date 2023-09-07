@@ -3,6 +3,8 @@ import { useState } from "react";
 import { IUserAdmin } from "../../../../../types/user/user.type";
 import { ColumnsType } from "antd/es/table";
 import FormUser from "../Form/FormUser";
+import { editUser } from "../../../../../store/features/userSlice/thunk/editThunkUser";
+import { deleteUser } from "../../../../../store/features/userSlice/thunk/deleteThunkUser";
 
 interface Props {
   user: IUserAdmin[];
@@ -67,16 +69,31 @@ export default function TableUser({
           <Button onClick={() => showDrawer(record)} type="primary">
             Edit
           </Button>
-          <Button danger>Delete</Button>
+          <Button danger onClick={() => handleDelete(record)}>
+            Delete
+          </Button>
         </Space>
       ),
     },
   ];
+
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [open, setOpen] = useState(false);
-  const { message } = App.useApp();
+  const { message, modal } = App.useApp();
   const [form] = Form.useForm();
+
+  const handleDelete = (record: any) => {
+    const { id } = record;
+    modal.confirm({
+      title: "Do you want delete this",
+      content: "",
+      onOk: () => {
+        dispatch(deleteUser(id));
+      },
+    });
+    message.success("delete Oke");
+  };
 
   const showDrawer = (record: any) => {
     console.log(record);
@@ -94,9 +111,14 @@ export default function TableUser({
   };
 
   const onFinish = (values: any) => {
-    console.log("Success:", values);
-    // dispatch(createUser(values));
-    message.success("Create Success");
+    const value = {
+      id: values.id,
+      body: {
+        ...values,
+      },
+    };
+    dispatch(editUser(value));
+    message.success("Edite Success");
   };
 
   const onFinishFailed = (errorInfo: any) => {
