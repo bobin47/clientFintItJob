@@ -104,8 +104,9 @@ export default function Company() {
       name: record.name,
       address: record.address,
       description: record.description,
+      uploadFile: record.logo,
     });
-    setOpen(true);
+    form.setOpen(true);
   };
 
   const handleDelete = (record: any) => {

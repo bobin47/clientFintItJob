@@ -20,7 +20,11 @@ export default function FormCompany({ dispatch, form, action, logo }: Props) {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onFinish = (values: any) => {
+    console.log(values);
     for (const key in values) {
+      if (key === "uploadFile") {
+        formData.append("company", values[key].file);
+      }
       if (Object.prototype.hasOwnProperty.call(values, key)) {
         formData.append(key, values[key]);
       }
@@ -36,10 +40,7 @@ export default function FormCompany({ dispatch, form, action, logo }: Props) {
     console.log("Failed:", errorInfo);
   };
 
-  const handleFileUpload = (file: any) => {
-    console.log(typeof file);
-    formData.append("company", file);
-  };
+  const handleFileUpload = (file: any) => {};
 
   // useEffect(() => {
   //   if (!action) {
@@ -108,20 +109,32 @@ export default function FormCompany({ dispatch, form, action, logo }: Props) {
         >
           <Input />
         </Form.Item>
-        <div style={{ marginLeft: "100px", marginBottom: "10px" }}>
+
+        <Form.Item
+          label="Upload file"
+          name="uploadFile"
+          rules={[{ required: true, message: "Please input your username!" }]}
+        >
           <Upload
             listType="picture"
-            className="upload-list-inline"
+            // className="upload-list-inline"
             // defaultFileList={[...fileList]}
             // fileList={[...fileList]}
             // onChange={handleUploadChange}
             style={{ maxWidth: 600 }}
-            beforeUpload={(file) => handleFileUpload(file)}
+            beforeUpload={(file) => {
+              return new Promise((resolve, reject) => {
+                if (file.size > 9000000) {
+                  resolve("sai");
+                } else {
+                  reject("dung");
+                }
+              });
+            }}
           >
             <Button icon={<UploadOutlined />}>Upload</Button>
           </Upload>
-          <Image src={`http://localhost:3000/${logo}`} />
-        </div>
+        </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
