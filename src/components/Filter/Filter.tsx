@@ -4,9 +4,10 @@ const { Search } = Input;
 interface Props {
   onSearch: any;
   onRefresh: any;
+  showDrawer: any;
 }
 
-export default function Filter({ onSearch, onRefresh }: Props) {
+export default function Filter({ onSearch, onRefresh, showDrawer }: Props) {
   return (
     <>
       <div className="search">
@@ -20,7 +21,7 @@ export default function Filter({ onSearch, onRefresh }: Props) {
         />
       </div>
       <div className="action">
-        <Button className="create" type="primary">
+        <Button className="create" type="primary" onClick={showDrawer}>
           Create
         </Button>
         <Button onClick={onRefresh} className="refresh" type="primary">

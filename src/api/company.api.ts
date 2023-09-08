@@ -10,7 +10,7 @@ export const apiCompany = {
   },
   getOneCompany: () => {},
   createCompany: (body: any) => {
-    return http.post("company/create", body);
+    return http.post("company", body);
   },
   editCompany: (id: number, body: any) => {
     return http.put(`company/${id}`, body);

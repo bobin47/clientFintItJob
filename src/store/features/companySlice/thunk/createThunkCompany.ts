@@ -13,7 +13,9 @@ export const createCompany = createAsyncThunk(
 export const createCompanyBuilder = (
   builder: ActionReducerMapBuilder<CompanyState>
 ) => {
-  builder.addCase(createCompany.fulfilled, (state, action) => {});
+  builder.addCase(createCompany.fulfilled, (state, action) => {
+    console.log(action.payload);
+  });
 
   builder.addCase(createCompany.rejected, (state, action) => {});
 

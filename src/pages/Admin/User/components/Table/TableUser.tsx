@@ -90,9 +90,9 @@ export default function TableUser({
       content: "",
       onOk: () => {
         dispatch(deleteUser(id));
+        message.success("delete Oke");
       },
     });
-    message.success("delete Oke");
   };
 
   const showDrawer = (record: any) => {
