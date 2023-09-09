@@ -13,7 +13,12 @@ export const getAllJob = createAsyncThunk(
 export const getAllJobBuilder = (
   builder: ActionReducerMapBuilder<JobState>
 ) => {
-  builder.addCase(getAllJob.fulfilled, (state, action) => {});
+  builder.addCase(getAllJob.fulfilled, (state, action) => {
+    console.log(action.payload);
+    const { data, total } = action.payload;
+    state.job = data;
+    state.total = total;
+  });
   builder.addCase(getAllJob.pending, (state, action) => {});
   builder.addCase(getAllJob.rejected, (state, action) => {});
 };

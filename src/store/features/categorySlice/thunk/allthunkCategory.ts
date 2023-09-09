@@ -13,7 +13,10 @@ export const getAllCategory = createAsyncThunk(
 export const getAllCategoryBuilder = (
   builder: ActionReducerMapBuilder<CategoryState>
 ) => {
-  builder.addCase(getAllCategory.fulfilled, (state, action) => {});
+  builder.addCase(getAllCategory.fulfilled, (state, action) => {
+    const { data } = action.payload;
+    state.category = data;
+  });
   builder.addCase(getAllCategory.pending, (state, action) => {});
   builder.addCase(getAllCategory.rejected, (state, action) => {});
 };

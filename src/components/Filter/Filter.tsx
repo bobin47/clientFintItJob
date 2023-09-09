@@ -1,13 +1,19 @@
 import React from "react";
-import { Button, Input } from "antd";
+import { Button, Input, Space } from "antd";
 const { Search } = Input;
 interface Props {
   onSearch: any;
   onRefresh: any;
   showDrawer: any;
+  selectItem?: any;
 }
 
-export default function Filter({ onSearch, onRefresh, showDrawer }: Props) {
+export default function Filter({
+  onSearch,
+  onRefresh,
+  showDrawer,
+  selectItem,
+}: Props) {
   return (
     <>
       <div className="search">
@@ -21,6 +27,7 @@ export default function Filter({ onSearch, onRefresh, showDrawer }: Props) {
         />
       </div>
       <div className="action">
+        <Space>{selectItem}</Space>
         <Button className="create" type="primary" onClick={showDrawer}>
           Create
         </Button>

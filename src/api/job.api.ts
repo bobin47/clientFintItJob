@@ -6,11 +6,11 @@ export const apiJob = {
     page: number | 1;
     search?: string;
   }) => {
-    return http.get("job/all", { params });
+    return http.get("job", { params });
   },
   getOneJob: () => {},
   createJob: (body: any) => {
-    return http.post("job/create", body);
+    return http.post("job", body);
   },
   editJob: (id: number, body: any) => {
     return http.put(`job/${id}`, body);

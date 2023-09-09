@@ -6,6 +6,7 @@ import userReducer from "./features/userSlice/userSlice";
 import companyReducer from "./features/companySlice/companySlice";
 import categoryReducer from "./features/categorySlice/categorySlice";
 import jobReducer from "./features/jobSlice/jobSlice";
+import postReducer from "./features/postSlice/postSlice";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     company: companyReducer,
     category: categoryReducer,
     job: jobReducer,
+    post: postReducer,
   },
   middleware: [thunkMiddleware],
 });

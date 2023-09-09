@@ -7,6 +7,7 @@ interface Props {
   page: number;
   pageSize: number;
   handlePagination: any;
+  x?: number;
 }
 
 export default function TableComponent({
@@ -16,10 +17,11 @@ export default function TableComponent({
   total,
   pageSize,
   handlePagination,
+  x = 0,
 }: Props) {
   return (
     <Table
-      scroll={{ x: 1500 }}
+      scroll={{ x: x }}
       columns={columns}
       dataSource={dataSource}
       pagination={{

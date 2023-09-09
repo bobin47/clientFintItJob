@@ -5,8 +5,7 @@ import { CompanyState } from "../companySlice";
 export const editCompany = createAsyncThunk(
   "company/editCompany",
   async (data: any, thunk) => {
-    const { id, body } = data;
-    const response = await apiCompany.editCompany(id, body);
+    const response = await apiCompany.editCompany(data.id, data.formData);
     return response.data;
   }
 );

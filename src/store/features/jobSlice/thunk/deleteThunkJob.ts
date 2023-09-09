@@ -14,7 +14,9 @@ export const deleteJob = createAsyncThunk(
 export const deleteJobBuilder = (
   builder: ActionReducerMapBuilder<JobState>
 ) => {
-  builder.addCase(deleteJob.fulfilled, (state, action) => {});
+  builder.addCase(deleteJob.fulfilled, (state, action) => {
+    console.log(action.payload);
+  });
   builder.addCase(deleteJob.pending, (state, action) => {});
   builder.addCase(deleteJob.rejected, (state, action) => {});
 };

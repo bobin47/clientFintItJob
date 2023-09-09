@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCompany } from "../../../store/features/companySlice/thunk/allthunkCompany";
 import { RootState } from "../../../store/store";
 import TableComponent from "../../../components/Table/TableComponent";
+import DrawerComponent from "../../../components/Drawer/DrawerComponent";
+import Filter from "../../../components/Filter/Filter";
 import { ColumnsType } from "antd/es/table";
 import { App, Button, Form, Space } from "antd";
-import Filter from "../../../components/Filter/Filter";
 import "./style.scss";
-import DrawerComponent from "../../../components/Drawer/DrawerComponent";
 import FormCompany from "./components/Form/FormCompany";
 import { deleteCompany } from "../../../store/features/companySlice/thunk/deleteThunkCompany";
+import { changeDate } from "../../../utils/utils";
 
 export default function Company() {
   const dispatch = useDispatch();
@@ -62,6 +63,9 @@ export default function Company() {
       dataIndex: "created_at",
       key: "created_at",
       ellipsis: true,
+      render: (created_at) => {
+        return <div>{changeDate(created_at)}</div>;
+      },
     },
     {
       title: "description",
@@ -73,6 +77,9 @@ export default function Company() {
       title: "updated_at",
       dataIndex: "updated_at",
       key: "updated_at",
+      render: (updated_at) => {
+        return <div>{changeDate(updated_at)}</div>;
+      },
       ellipsis: true,
     },
     {
@@ -104,9 +111,8 @@ export default function Company() {
       name: record.name,
       address: record.address,
       description: record.description,
-      uploadFile: record.logo,
     });
-    form.setOpen(true);
+    setOpen(true);
   };
 
   const handleDelete = (record: any) => {
@@ -156,6 +162,7 @@ export default function Company() {
         />
       </div>
       <TableComponent
+        x={1500}
         columns={columns}
         dataSource={company}
         page={page}

@@ -8,15 +8,18 @@ export const apiCompany = {
   }) => {
     return http.get("company/all", { params });
   },
-  getOneCompany: () => {},
+  getAllCompanyNoPagination: () => {
+    return http.get("company/not-pagination");
+  },
   createCompany: (body: any) => {
     return http.post("company", body);
   },
-  editCompany: (id: number, body: any) => {
+
+  editCompany: (id: number, body: FormData) => {
     return http.put(`company/${id}`, body);
   },
+
   deleteCompany: (id: number) => {
     return http.delete(`company/${id}`);
   },
-  uploadAvatar: () => {},
 };

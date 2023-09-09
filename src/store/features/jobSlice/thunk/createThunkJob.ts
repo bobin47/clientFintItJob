@@ -13,7 +13,9 @@ export const createJob = createAsyncThunk(
 export const createJobBuilder = (
   builder: ActionReducerMapBuilder<JobState>
 ) => {
-  builder.addCase(createJob.fulfilled, (state, action) => {});
+  builder.addCase(createJob.fulfilled, (state, action) => {
+    console.log(action.payload);
+  });
 
   builder.addCase(createJob.rejected, (state, action) => {});
 

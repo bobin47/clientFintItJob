@@ -16,56 +16,48 @@ interface Props {
 export default function FormCompany({ dispatch, form, action, logo }: Props) {
   console.log("logo", logo);
   const formData: FormData = new FormData();
-  const id = useId();
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: "-1",
+      name: logo,
+      status: "done",
+      url: `http://localhost:3000/${logo}`,
+      thumbUrl: `http://localhost:3000/${logo}`,
+    },
+  ]);
 
   const onFinish = (values: any) => {
     console.log(values);
-    for (const key in values) {
-      if (key === "uploadFile") {
-        formData.append("company", values[key].file);
-      }
-      if (Object.prototype.hasOwnProperty.call(values, key)) {
-        formData.append(key, values[key]);
-      }
-    }
+    formData.append("name", values.name);
+    formData.append("address", values.address);
+    formData.append("description", values.description);
+    formData.append("company", values["uploadFile"].file);
+
+    // for (const key in values) {
+    //   if (key === "id") {
+    //     continue;
+    //   }
+    //   if (key === "uploadFile") {
+    //     formData.append("company", values[key].file);
+    //   }
+    //   if (values.hasOwnProperty(key)) {
+    //     formData.append(key, values[key]);
+    //   }
+    // }
     if (action) {
       dispatch(createCompany(formData));
     } else {
-      // dispatch(editCompany(formData));
+      const body = {
+        id: values.id,
+        formData: formData,
+      };
+      dispatch(editCompany(body));
     }
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
-
-  const handleFileUpload = (file: any) => {};
-
-  // useEffect(() => {
-  //   if (!action) {
-  //     setFileList([
-  //       {
-  //         uid: id,
-  //         name: logo,
-  //         status: "done",
-  //         url: `http://localhost:3000/${logo}`,
-  //         thumbUrl: `http://localhost:3000/${logo}`,
-  //       },
-  //     ]);
-  //     // handleFileUpload(fileList[0]);
-  //     // const file = fileList[0]
-  //     // formData.append("company",);
-  //   } else {
-  //     setFileList([]);
-  //   }
-  // }, [logo]);
-
-  const handleUploadChange = (info: any) => {
-    formData.append("company", info.file.originFileObj);
-  };
-
-  console.log(typeof fileList[0]);
 
   return (
     <div>
@@ -113,14 +105,10 @@ export default function FormCompany({ dispatch, form, action, logo }: Props) {
         <Form.Item
           label="Upload file"
           name="uploadFile"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          // rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Upload
-            listType="picture"
-            // className="upload-list-inline"
-            // defaultFileList={[...fileList]}
-            // fileList={[...fileList]}
-            // onChange={handleUploadChange}
+            defaultFileList={[...fileList]}
             style={{ maxWidth: 600 }}
             beforeUpload={(file) => {
               return new Promise((resolve, reject) => {

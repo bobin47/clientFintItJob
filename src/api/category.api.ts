@@ -1,11 +1,7 @@
 import http from "../utils/http";
 
 export const apiCategory = {
-  getAllCategory: (params: {
-    limit: number | 10;
-    page: number | 1;
-    search?: string;
-  }) => {
+  getAllCategory: (params: { search?: string }) => {
     return http.get("category", { params });
   },
   getOneCategory: () => {},

@@ -6,17 +6,17 @@ export const apiPost = {
     page: number | 1;
     search?: string;
   }) => {
-    return http.get("post", { params });
+    return http.get("posts", { params });
   },
   getOnePost: () => {},
   createPost: (body: any) => {
-    return http.post("post/create", body);
+    return http.post("posts/create", body);
   },
   editPost: (id: number, body: any) => {
-    return http.put(`post/${id}`, body);
+    return http.put(`posts/${id}`, body);
   },
   deletePost: (id: number) => {
-    return http.delete(`post/${id}`);
+    return http.delete(`posts/${id}`);
   },
   uploadAvatar: () => {},
 };

@@ -1,4 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getAllJobBuilder } from "./thunk/allthunkJob";
+import { createJobBuilder } from "./thunk/createThunkJob";
+import { editJobBuilder } from "./thunk/editThunkJob";
+import { deleteJobBuilder } from "./thunk/deleteThunkJob";
 
 export interface JobState {
   job: any;
@@ -14,7 +18,12 @@ const jobSlice = createSlice({
   name: "job",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    getAllJobBuilder(builder);
+    createJobBuilder(builder);
+    editJobBuilder(builder);
+    deleteJobBuilder(builder);
+  },
 });
 
 export default jobSlice.reducer;

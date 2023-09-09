@@ -6,7 +6,7 @@ import {
   IdcardOutlined,
   FundProjectionScreenOutlined,
   UsergroupAddOutlined,
-  PartitionOutlined
+  PartitionOutlined,
 } from "@ant-design/icons";
 import { Menu, MenuProps } from "antd";
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -64,15 +64,6 @@ export default function SiderCustom() {
         </NavLink>
       ),
       label: "Post",
-    },
-    {
-      key: "cv",
-      icon: (
-        <NavLink to={path.cv}>
-          <FileProtectOutlined />
-        </NavLink>
-      ),
-      label: "CV",
     },
     {
       key: "category",

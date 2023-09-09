@@ -13,7 +13,11 @@ export const getAllPost = createAsyncThunk(
 export const getAllPostBuilder = (
   builder: ActionReducerMapBuilder<PostState>
 ) => {
-  builder.addCase(getAllPost.fulfilled, (state, action) => {});
+  builder.addCase(getAllPost.fulfilled, (state, action) => {
+    const { data, total } = action.payload;
+    state.post = data;
+    state.total = total;
+  });
   builder.addCase(getAllPost.pending, (state, action) => {});
   builder.addCase(getAllPost.rejected, (state, action) => {});
 };
