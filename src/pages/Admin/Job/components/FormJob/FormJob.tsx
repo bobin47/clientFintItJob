@@ -112,13 +112,6 @@ export default function FormJob({ allCompany, form, action, dispatch }: Props) {
       >
         <Input />
       </Form.Item>
-      {/* <Form.Item
-        label="startDate"
-        name="time"
-        rules={[{ required: true, message: "Please input your username!" }]}
-      >
-        <DatePickerComponent />
-      </Form.Item> */}
 
       <Form.Item
         rules={[{ required: true, message: "Please input your quantity!" }]}

@@ -10,7 +10,7 @@ export const apiPost = {
   },
   getOnePost: () => {},
   createPost: (body: any) => {
-    return http.post("posts/create", body);
+    return http.post("posts", body);
   },
   editPost: (id: number, body: any) => {
     return http.put(`posts/${id}`, body);

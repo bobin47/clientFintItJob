@@ -4,13 +4,15 @@ import DrawerComponent from "../../../components/Drawer/DrawerComponent";
 import Filter from "../../../components/Filter/Filter";
 import { RootState } from "../../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { App, Button, Space } from "antd";
+import { App, Button, Space, Form, Image } from "antd";
 import { editPost } from "../../../store/features/postSlice/thunk/editThunkPost";
 import { getAllPost } from "../../../store/features/postSlice/thunk/allthunkPost";
 import { ColumnsType } from "antd/es/table";
 import { changeDate } from "../../../utils/utils";
 import SelectCategory from "./components/SelectCategory/SelectCategory";
 import { getAllCategory } from "../../../store/features/categorySlice/thunk/allthunkCategory";
+import FormCategory from "./components/FormCategory/FormCategory";
+import { deletePost } from "../../../store/features/postSlice/thunk/deleteThunkPost";
 
 export default function Post() {
   const dispatch = useDispatch();
@@ -19,10 +21,10 @@ export default function Post() {
   const { category } = useSelector((state: RootState) => state.category);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
+  const [action, setAction] = useState<boolean>();
   const [open, setOpen] = useState(false);
   const [defaultValueSelect, setDefaultValueSelect] = useState("khong co gi");
-
-  defaultValueSelect;
+  const [form] = Form.useForm();
 
   const columns: ColumnsType<any> = [
     {
@@ -44,6 +46,14 @@ export default function Post() {
       dataIndex: "description",
       key: "description",
       ellipsis: true,
+    },
+    {
+      title: "thumbnail",
+      dataIndex: "thumbnail",
+      key: "thumbnail",
+      render(value, { thumbnail }, index) {
+        return <Image src={`http://localhost:3000/${thumbnail}`} />;
+      },
     },
     {
       title: "category",
@@ -95,9 +105,25 @@ export default function Post() {
     dispatch(getAllCategory());
   }, []);
 
-  const handleDelete = (record) => {};
+  const handleDelete = (record: any) => {
+    modal.confirm({
+      title: "Do you want this",
+      onOk: () => {
+        dispatch(deletePost(record.id));
+      },
+    });
+  };
 
   const showDrawer = (record: any) => {
+    const isCheck = record.id === undefined;
+    setAction(isCheck);
+    if (record.id) {
+      form.setFieldsValue({
+        id: record.id,
+        title: record.title,
+        description: record.description,
+      });
+    }
     setOpen(true);
   };
 
@@ -153,7 +179,19 @@ export default function Post() {
         total={total}
       />
 
-      <DrawerComponent onClose={onClose} FormComponent={() => {}} open={open} />
+      <DrawerComponent
+        width={900}
+        onClose={onClose}
+        FormComponent={
+          <FormCategory
+            form={form}
+            category={category}
+            dispatch={dispatch}
+            action={action}
+          />
+        }
+        open={open}
+      />
     </div>
   );
 }

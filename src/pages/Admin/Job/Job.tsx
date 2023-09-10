@@ -189,7 +189,12 @@ export default function Job() {
   };
 
   const handleDelete = (record: any) => {
-    dispatch(deleteJob(record.id));
+    modal.confirm({
+      title: "Do you want this",
+      onOk: () => {
+        dispatch(deleteJob(record.id));
+      },
+    });
   };
 
   const onClose = () => {

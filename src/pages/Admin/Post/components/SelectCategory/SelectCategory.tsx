@@ -2,8 +2,8 @@ import { Select } from "antd";
 import React from "react";
 interface Props {
   category: any;
-  handleChange: any;
-  defaultValue: any;
+  handleChange?: any;
+  defaultValue?: any;
 }
 const { Option } = Select;
 

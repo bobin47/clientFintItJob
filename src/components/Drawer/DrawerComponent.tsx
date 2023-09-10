@@ -4,12 +4,14 @@ interface Props {
   onClose: any;
   open: any;
   FormComponent: any;
+  width?: any;
 }
 
 export default function DrawerComponent({
   onClose,
   open,
   FormComponent,
+  width,
 }: Props) {
   return (
     <Drawer
@@ -17,6 +19,7 @@ export default function DrawerComponent({
       placement="right"
       onClose={onClose}
       open={open}
+      width={width}
     >
       {FormComponent}
     </Drawer>
