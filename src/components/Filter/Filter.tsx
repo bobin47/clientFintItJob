@@ -14,6 +14,7 @@ export default function Filter({
   showDrawer,
   selectItem,
 }: Props) {
+  
   return (
     <>
       <div className="search">

@@ -1,62 +1,68 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllCompany } from "../../../store/features/companySlice/thunk/allthunkCompany";
-import { RootState } from "../../../store/store";
-import TableComponent from "../../../components/Table/TableComponent";
-import DrawerComponent from "../../../components/Drawer/DrawerComponent";
+import React, { useEffect, useState } from "react";
 import Filter from "../../../components/Filter/Filter";
+import TableComponent from "../../../components/Table/TableComponent";
 import { ColumnsType } from "antd/es/table";
-import { App, Button, Form, Space } from "antd";
-import "./style.scss";
-import FormCompany from "./components/Form/FormCompany";
-import { deleteCompany } from "../../../store/features/companySlice/thunk/deleteThunkCompany";
-import { changeDate } from "../../../utils/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { App, Button, Form, Space, Tooltip } from "antd";
 
-export default function Company() {
+import "./style.scss";
+import { getAllTour } from "../../../store/features/tourSlice/thunk/allthunkSlice";
+import { changeDate } from "../../../utils/utils";
+import DrawerComponent from "../../../components/Drawer/DrawerComponent";
+import FormTour from "./components/Form/FormTour";
+import { Outlet } from "react-router-dom";
+
+export default function Tour() {
   const dispatch = useDispatch();
   const { message, modal } = App.useApp();
-  const { company, total } = useSelector((state: RootState) => state.company);
+  const { tours, total } = useSelector((state: RootState) => state.tour);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const [form] = Form.useForm();
   const [action, setAction] = useState<boolean>();
   const [logo, setLogo] = useState<string>("");
-
   const columns: ColumnsType<any> = [
     {
       title: "id",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "_id",
+      key: "_id",
       render: (text) => <a>{text}</a>,
       fixed: "left",
-      width: 80,
+      width: 150,
     },
     {
-      title: "name",
-      dataIndex: "name",
-      key: "name",
+      title: "title",
+      dataIndex: "title",
+      key: "title",
       fixed: "left",
-      width: 220,
-    },
-    {
-      title: "address ",
-      dataIndex: "address",
-      key: "address",
+      width: 150,
       ellipsis: true,
+      render: (title) => (
+        <Tooltip placement="topLeft" title={title}>
+          {title}
+        </Tooltip>
+      ),
     },
     {
-      title: "logo ",
-      dataIndex: "logo",
-      key: "logo",
-      render: (logo) => {
-        return (
-          <img
-            style={{ width: "100%", height: "50px" }}
-            src={`http://localhost:3000/${logo}`}
-            alt=""
-          />
-        );
-      },
+      title: "description",
+      dataIndex: "description",
+      key: "description",
+    },
+    {
+      title: "price",
+      dataIndex: "price",
+      key: "price",
+    },
+    {
+      title: "brief",
+      dataIndex: "brief",
+      key: "brief ",
+    },
+    {
+      title: "content",
+      dataIndex: "content",
+      key: "content ",
     },
     {
       title: "created_at",
@@ -66,12 +72,6 @@ export default function Company() {
       render: (created_at) => {
         return <div>{changeDate(created_at)}</div>;
       },
-    },
-    {
-      title: "description",
-      dataIndex: "description",
-      key: "description",
-      ellipsis: true,
     },
     {
       title: "updated_at",
@@ -96,31 +96,39 @@ export default function Company() {
         </Space>
       ),
       fixed: "right",
-      width: 150,
+      width: 180,
     },
   ];
 
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    const param = { limit, page };
+    dispatch(getAllTour(param));
+  }, []);
+
   const showDrawer = (record: any) => {
-    const isCheck = record.id === undefined;
+    console.log(record)
+    const isCheck = record._id === undefined;
     setAction(isCheck);
     setLogo(record.logo);
     form.setFieldsValue({
-      id: record.id,
-      name: record.name,
-      address: record.address,
+      _id: record._id,
+      title: record.title,
+      price: record.price,
+      brief: record.brief,
       description: record.description,
+      content: record.content,
     });
     setOpen(true);
   };
 
   const handleDelete = (record: any) => {
-    const { id } = record;
+    const { _id } = record;
     modal.confirm({
       title: "Do you want delete",
       onOk: () => {
-        dispatch(deleteCompany(id));
+        //  dispatch(deleteCompany(id));
         message.success("success");
       },
       onCancel: () => {},
@@ -131,25 +139,20 @@ export default function Company() {
     setOpen(false);
   };
 
-  useEffect(() => {
-    const param = { limit, page };
-    dispatch(getAllCompany(param));
-  }, []);
-
   const handlePagination = (current: any, size: any) => {
     const param = { limit: size, page: current };
-    dispatch(getAllCompany(param));
+    dispatch(getAllTour(param));
     setPage(current);
   };
 
   const onSearch = (value: string) => {
     const param = { limit, page, search: value };
-    dispatch(getAllCompany(param));
+    //  dispatch(getAllCompany(param));
   };
 
   const onRefresh = () => {
     const param = { limit, page };
-    dispatch(getAllCompany(param));
+    //  dispatch(getAllCompany(param));
   };
 
   return (
@@ -164,7 +167,7 @@ export default function Company() {
       <TableComponent
         x={1500}
         columns={columns}
-        dataSource={company}   
+        dataSource={tours}
         page={page}
         total={total}
         pageSize={limit}
@@ -172,17 +175,14 @@ export default function Company() {
       />
 
       <DrawerComponent
+        width={1400}
         onClose={onClose}
         open={open}
         FormComponent={
-          <FormCompany
-            dispatch={dispatch}
-            form={form}
-            action={action}
-            logo={logo}
-          />
+          <FormTour action={action} dispatch={dispatch} form={form} />
         }
       />
+     
     </div>
   );
 }

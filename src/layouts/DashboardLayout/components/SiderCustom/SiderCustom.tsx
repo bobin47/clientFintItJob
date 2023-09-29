@@ -2,10 +2,8 @@ import {
   UserOutlined,
   BankOutlined,
   ProjectOutlined,
-  FileProtectOutlined,
   IdcardOutlined,
   FundProjectionScreenOutlined,
-  UsergroupAddOutlined,
   PartitionOutlined,
 } from "@ant-design/icons";
 import { Menu, MenuProps } from "antd";
@@ -27,61 +25,52 @@ export default function SiderCustom() {
       label: "Dashboard",
     },
     {
-      key: "user",
+      key: "tour",
       icon: (
-        <NavLink to={path.user}>
+        <NavLink to={path.tour}>
           <UserOutlined />
         </NavLink>
       ),
-      label: "User",
-    },
-    {
-      key: "company",
-
-      icon: (
-        <NavLink to={path.company}>
-          <BankOutlined />
-        </NavLink>
-      ),
-      label: "Company",
-    },
-
-    {
-      key: "job",
-      icon: (
-        <NavLink to={path.job}>
-          <ProjectOutlined />
-        </NavLink>
-      ),
-      label: "Job",
-    },
-
-    {
-      key: "post",
-      icon: (
-        <NavLink to={path.post}>
-          <IdcardOutlined />
-        </NavLink>
-      ),
-      label: "Post",
-    },
-    {
-      key: "category",
-      icon: (
-        <NavLink to={path.category}>
-          <PartitionOutlined />
-        </NavLink>
-      ),
-      label: "Category",
+      label: "Tour",
     },
     // {
-    //   key: "permission",
+    //   key: "company",
+
     //   icon: (
-    //     <NavLink to={path.permission}>
+    //     <NavLink to={path.company}>
+    //       <BankOutlined />
+    //     </NavLink>
+    //   ),
+    //   label: "Company",
+    // },
+
+    // {
+    //   key: "job",
+    //   icon: (
+    //     <NavLink to={path.job}>
+    //       <ProjectOutlined />
+    //     </NavLink>
+    //   ),
+    //   label: "Job",
+    // },
+
+    // {
+    //   key: "post",
+    //   icon: (
+    //     <NavLink to={path.post}>
+    //       <IdcardOutlined />
+    //     </NavLink>
+    //   ),
+    //   label: "Post",
+    // },
+    // {
+    //   key: "category",
+    //   icon: (
+    //     <NavLink to={path.category}>
     //       <PartitionOutlined />
     //     </NavLink>
     //   ),
-    //   label: "Permission",
+    //   label: "Category",
     // },
   ];
 

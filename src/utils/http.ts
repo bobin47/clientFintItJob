@@ -1,14 +1,14 @@
-import { ResponseSuccessAuth } from "../types/login/login.type";
-import axios, { type AxiosInstance } from "axios";
-
+import axios, { AxiosError, type AxiosInstance } from 'axios'
+import {
+  message,
+} from "antd";
 import {
   getAccessTokenFormLC,
   getRefresherTokenFormLC,
   setAccessTokenFormLC,
-  setRefresherTokenFormLC,
   setUserFormLC,
 } from "./auth.utils";
-const url: string = "http://localhost:3000/";
+const url: string = "http://localhost:4000/";
 
 class Http {
   instance: AxiosInstance;
@@ -45,18 +45,28 @@ class Http {
 
     this.instance.interceptors.response.use(
       function(response) {
+        
         const { url } = response.config;
-        if (url === "auth/login") {
-          const data = response.data as ResponseSuccessAuth;
-          const { access_token, refresh_token, user } = data.res.data;
-          setAccessTokenFormLC(access_token);
-          setRefresherTokenFormLC(refresh_token);
+        if (url === "user/login") {
+          message.success("Login ok");
+          const data = response.data
+          console.log(data)
+          const { token, user } = data;
+          console.log(token, user)
+          setAccessTokenFormLC(token);
           setUserFormLC(user);
         }
+
+        if(url === "user/register"){
+           message.success("Register ok");
+        }
+        
         return response;
       },
-      function(error) {
-        console.log(error)
+      function(error:AxiosError) {
+        if (error.config.url === "user/login") {
+          message.error("Login fail");
+        }
 
         return Promise.reject(error);
       }

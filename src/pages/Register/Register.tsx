@@ -6,6 +6,7 @@ import {
   Card,
   Form,
   Input,
+  message,
   Checkbox,
 } from "antd";
 import logo1 from "../../assets/images/logos-facebook.svg";
@@ -19,13 +20,19 @@ import {
   InstagramOutlined,
   GithubOutlined,
 } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { RegisterAccount } from "../../store/features/authSlice/thunkauth";
 
 const { Title } = Typography;
 const { Footer, Content } = Layout;
 
 export default function Register() {
+
+  const dispatch = useDispatch();
+  const [messageApi, contextHolder] = message.useMessage();
+
   const onFinish = (values) => {
-    console.log("Success:", values);
+    dispatch(RegisterAccount(values))
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -33,6 +40,7 @@ export default function Register() {
   };
   return (
     <>
+      {contextHolder}
       <div className="layout-default ant-layout layout-sign-up">
         <Content className="p-0">
           <div className="sign-up-header">
@@ -67,28 +75,28 @@ export default function Register() {
               className="row-col"
             >
               <Form.Item
-                name="first_name"
+                name="userName"
                 rules={[
                   { required: true, message: "Please input your username!" },
                 ]}
               >
-                <Input placeholder="First Name" />
+                <Input placeholder="User Name" />
               </Form.Item>
               <Form.Item
-                name="last_name"
+                name="fullName"
                 rules={[
                   { required: true, message: "Please input your username!" },
                 ]}
               >
-                <Input placeholder="Last Name" />
+                <Input placeholder="Full Name" />
               </Form.Item>
               <Form.Item
-                name="email"
+                name="description"
                 rules={[
                   { required: true, message: "Please input your email!" },
                 ]}
               >
-                <Input placeholder="Email" />
+                <Input placeholder="Description" />
               </Form.Item>
               <Form.Item
                 name="password"
@@ -96,16 +104,7 @@ export default function Register() {
                   { required: true, message: "Please input your password!" },
                 ]}
               >
-                <Input placeholder="Password" />
-              </Form.Item>
-
-              <Form.Item name="remember" valuePropName="checked">
-                <Checkbox>
-                  I agree the{" "}
-                  <a href="#pablo" className="font-bold text-dark">
-                    Terms and Conditions
-                  </a>
-                </Checkbox>
+                <Input.Password placeholder="Password" />
               </Form.Item>
 
               <Form.Item>

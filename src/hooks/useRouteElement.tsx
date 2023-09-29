@@ -11,6 +11,8 @@ import Resume from "../pages/Admin/Resume";
 import Post from "../pages/Admin/Post";
 import Category from "../pages/Admin/Category";
 import Home from "../pages/Client/Home/Home";
+import Tour from "../pages/Admin/Tour";
+
 
 function ProtectedRoute() {
   const isAuthenticated = window.localStorage.getItem("user");
@@ -24,7 +26,7 @@ function RejectRoute() {
 
 function IsAdmin() {
   const data = JSON.parse(localStorage.getItem("user") || "{}");
-  return data.roles === "Admin" ? <Outlet /> : <Navigate to="/" />;
+  return data ? <Outlet /> : <Navigate to="/" />;
 }
 
 export default function useRouteElement() {
@@ -38,8 +40,8 @@ export default function useRouteElement() {
           element: <Login />,
         },
         {
-          path: path.login,
-          element: <Login />,
+          path: path.register,
+          element: <Register />,
         },
       ],
     },
@@ -67,6 +69,10 @@ export default function useRouteElement() {
                 {
                   path: path.user,
                   element: <User />,
+                },
+                {
+                  path: path.tour,
+                  element: <Tour />,
                 },
                 {
                   path: path.company,

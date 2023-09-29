@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Layout } from "antd";
 import "./index.scss";
 import SiderCustom from "./components/SiderCustom";
@@ -11,9 +11,16 @@ interface Props {
 }
 
 export default function DashboardLayout({ children }: Props) {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
-    <Layout style={{ minHeight: "150vh" }}>
-      <Sider className="header">
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        className="header"
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+      >
         <SiderCustom />
       </Sider>
       <Layout>

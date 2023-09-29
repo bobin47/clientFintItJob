@@ -8,7 +8,6 @@ import {
   Typography,
   Form,
   Input,
-  Checkbox,
   message,
 } from "antd";
 import signinbg from "../../assets/images/img-signin.jpg";
@@ -22,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { LoginDto } from "../../types/dto/auth.dto";
 import { LoginAccount } from "../../store/features/authSlice/thunkauth";
+import { useEffect } from "react";
 
 const { Title } = Typography;
 const { Footer, Content } = Layout;
@@ -35,16 +35,13 @@ export default function SignIn() {
   const onFinish = (values: LoginDto) => {
     console.log("Success:", values);
     dispatch(LoginAccount(values));
+    
   };
-
-  if (isAuthenticated) {
-    messageApi.info("Login success");
-    setTimeout(() => {
-      navigate("/home");
-    }, 2000);
-  } else {
-    messageApi.error("Login fail");
-  }
+  useEffect(()=>{
+    if (isAuthenticated) {
+      navigate("/admin/dashboard");
+    }
+  },[isAuthenticated])
 
   const onFinishFailed = (errorInfo: any) => {};
 
@@ -72,11 +69,11 @@ export default function SignIn() {
                 <Form.Item
                   className="username"
                   label="Email"
-                  name="email"
+                  name="userName"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your email!",
+                      message: "Please input your userName!",
                     },
                   ]}
                 >
@@ -97,15 +94,7 @@ export default function SignIn() {
                   <Input.Password placeholder="Password" />
                 </Form.Item>
 
-                <Form.Item
-                  name="remember"
-                  className="aligin-center"
-                  valuePropName="checked"
-                >
-                  {/* <Switch defaultChecked onChange={onChange} /> */}
-                  <Checkbox>Remember me</Checkbox>
-                  {/* Remember me */}
-                </Form.Item>
+               
 
                 <Form.Item>
                   <Button

@@ -7,6 +7,8 @@ import companyReducer from "./features/companySlice/companySlice";
 import categoryReducer from "./features/categorySlice/categorySlice";
 import jobReducer from "./features/jobSlice/jobSlice";
 import postReducer from "./features/postSlice/postSlice";
+import tourReducer from "./features/tourSlice/tourSlice";
+
 
 const store = configureStore({
   reducer: {
@@ -17,6 +19,7 @@ const store = configureStore({
     category: categoryReducer,
     job: jobReducer,
     post: postReducer,
+    tour: tourReducer,
   },
   middleware: [thunkMiddleware],
 });

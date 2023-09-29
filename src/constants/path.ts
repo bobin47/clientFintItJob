@@ -12,4 +12,5 @@ export const path = {
   permission: "permission",
   category: "category",
   home: "home",
+  tour: "tour",
 };

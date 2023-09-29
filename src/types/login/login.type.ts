@@ -4,6 +4,7 @@ interface Data {
   access_token: string;
   refresh_token: string;
   user: IUser;
+  
 }
 
 export interface ResponseSuccessAuth {
