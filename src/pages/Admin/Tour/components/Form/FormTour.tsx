@@ -7,7 +7,6 @@ interface Props {
   onChange?: any;
 }
 const CustomCKEditor = ({ onChange, value }: Props) => {
-
   const handleEditorChange = (event: any, editor: any) => {
     const data = editor.getData();
     onChange(data);
@@ -17,9 +16,7 @@ const CustomCKEditor = ({ onChange, value }: Props) => {
     <div>
       <CKEditor
         editor={ClassicEditor}
-        data={
-          "<p>fdasdfasdfe</p><p>&nbsp;</p><p>&nbsp;</p><p><i>asdfasd</i></p><p>&nbsp;</p><p>&nbsp;</p><p><strong>hello</strong></p>"
-        }
+        data={value}
         onChange={handleEditorChange}
         config={{
           image: {

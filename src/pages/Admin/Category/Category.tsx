@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import TableComponent from "../../../components/Table/TableComponent";
 import DrawerComponent from "../../../components/Drawer/DrawerComponent";
 import Filter from "../../../components/Filter/Filter";
@@ -12,7 +12,6 @@ import { deleteCategory } from "../../../store/features/categorySlice/thunk/dele
 
 export default function Category() {
   const dispatch = useDispatch();
-  const { message, modal } = App.useApp();
   const { category, total } = useSelector((state: RootState) => state.category);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
@@ -42,17 +41,17 @@ export default function Category() {
   };
 
   const handlePagination = (current: any, size: any) => {
-    const param = { limit: size, page: current };
+    // const param = { limit: size, page: current };
 
     setPage(current);
   };
 
   const onSearch = (value: string) => {
-    const param = { limit, page, search: value };
+    // const param = { limit, page, search: value };
   };
 
   const onRefresh = () => {
-    const param = { limit, page };
+    // const param = { limit, page };
   };
 
   const handleDelete = (record: any) => {

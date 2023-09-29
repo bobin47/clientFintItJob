@@ -1,10 +1,7 @@
 import {
   UserOutlined,
-  BankOutlined,
-  ProjectOutlined,
-  IdcardOutlined,
+
   FundProjectionScreenOutlined,
-  PartitionOutlined,
 } from "@ant-design/icons";
 import { Menu, MenuProps } from "antd";
 import { Link, NavLink, useLocation } from "react-router-dom";

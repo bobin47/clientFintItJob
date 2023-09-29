@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Input, Space } from "antd";
 const { Search } = Input;
 interface Props {

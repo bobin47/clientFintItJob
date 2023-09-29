@@ -1,0 +1,21 @@
+.sider {
+  margin-top: 70px;
+}
+
+.header {
+  background: white;
+}
+
+.content {
+  margin: 24px 16px;
+  padding: 24;
+  min-height: 280px;
+}
+
+.header-search {
+  width: 213px;
+  margin: 0 7px 0 0;
+  border-radius: 6px;
+  height: 40px;
+  border: 1px solid #d9d9d9;
+}/*# sourceMappingURL=index.css.map */

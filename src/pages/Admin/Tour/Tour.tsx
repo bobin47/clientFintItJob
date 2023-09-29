@@ -11,7 +11,6 @@ import { getAllTour } from "../../../store/features/tourSlice/thunk/allthunkSlic
 import { changeDate } from "../../../utils/utils";
 import DrawerComponent from "../../../components/Drawer/DrawerComponent";
 import FormTour from "./components/Form/FormTour";
-import { Outlet } from "react-router-dom";
 
 export default function Tour() {
   const dispatch = useDispatch();
